@@ -1,7 +1,8 @@
 {
     "name": "vditors",
     "version": "0.1.0",
-    "private": true,
+    "private": false,
+    "main": "./src/background.ts",
     "scripts": {
         "electron:serve": "vue-cli-service electron:serve",
         "electron:build": "vue-cli-service electron:build",
