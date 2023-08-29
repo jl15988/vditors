@@ -1,7 +1,10 @@
 {
     "name": "vditors",
     "version": "0.1.0",
-    "private": false,
+    "private": true,
+    "author": {
+        "name": "jl15988"
+    },
     "main": "./src/background.ts",
     "scripts": {
         "electron:serve": "vue-cli-service electron:serve",

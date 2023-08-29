@@ -6,6 +6,7 @@
 import { onMounted, ref } from 'vue'
 import Vditor from 'vditor'
 import 'vditor/dist/index.css'
+import { ipcRenderer } from 'electron'
 
 const vditor = ref<Vditor | null>(null)
 
@@ -24,10 +25,7 @@ const toolbars = [
   'indent',
   'code',
   'inline-code',
-  'insert-after',
-  'insert-before',
-  'undo',
-  'redo',
+  '|',
   'upload',
   'link',
   'table',
@@ -35,10 +33,7 @@ const toolbars = [
   'edit-mode',
   'both',
   'preview',
-  'fullscreen',
   'outline',
-  'code-theme',
-  'content-theme',
   'export',
   'devtools',
   'br'].map(item => {
@@ -48,11 +43,28 @@ const toolbars = [
   }
 })
 
+const fileUpload = (files: File[]): string | Promise<string> | Promise<null> | null => {
+  return ''
+}
+
 onMounted(() => {
   vditor.value = new Vditor('vditor', {
     placeholder: '在此处输入内容...',
-    toolbar: toolbars
+    toolbar: toolbars,
+    counter: {
+      enable: true,
+      type: 'text'
+    },
+    upload: {
+      handler: fileUpload
+    }
   })
+})
+
+ipcRenderer.on('export-pdf', () => {
+  if (!vditor.value) return ''
+  const value = vditor.value
+  console.log(value.getHTML())
 })
 </script>
 

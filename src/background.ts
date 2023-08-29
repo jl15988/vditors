@@ -14,11 +14,6 @@ protocol.registerSchemesAsPrivileged([
     }
   }
 ])
-
-const menuList = Menu.buildFromTemplate(menus)
-Menu.setApplicationMenu(menuList)
-
-
 let win: any = null
 
 async function createWindow () {
@@ -44,6 +39,10 @@ async function createWindow () {
       preload: './preload.ts' // 预加载
     }
   })
+
+  const menuList = Menu.buildFromTemplate(menus(win))
+  Menu.setApplicationMenu(menuList)
+
   if (process.env.NODE_ENV === 'production') {
     // 正式
     createProtocol('app')
