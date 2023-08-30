@@ -1,6 +1,8 @@
 import MenuItemConstructorOptions = Electron.MenuItemConstructorOptions;
 import {BrowserWindow, ipcMain} from 'electron'
 
+const theme = ['ant-design', 'light', 'dark', 'wechat']
+
 export default (win: BrowserWindow) => {
   return [
     {
@@ -42,10 +44,16 @@ export default (win: BrowserWindow) => {
               }
             },
             {
-              label: 'HTML'
+              label: 'HTML',
+              click: () => {
+                win.webContents.send('export-html')
+              }
             },
             {
-              label: '图片'
+              label: '图片',
+              click: () => {
+                win.webContents.send('export-images')
+              }
             }
           ]
         }
@@ -112,6 +120,32 @@ export default (win: BrowserWindow) => {
           label: '全屏/窗口',
           accelerator: 'F11'
         },
+      ]
+    },
+    {
+      label: '主题(T)',
+      accelerator: 'Alt+T',
+      submenu: [
+        {
+          label: '编辑器',
+          submenu: theme.map(item => {
+            return {
+              label: item
+            }
+          })
+        },
+        {
+          label: '暗色'
+        },
+        {
+          label: '亮色'
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label: ''
+        }
       ]
     }
   ] as Array<MenuItemConstructorOptions>

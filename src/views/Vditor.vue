@@ -65,6 +65,19 @@ ipcRenderer.on('export-pdf', () => {
   if (!vditor.value) return ''
   const value = vditor.value
   console.log(value.getHTML())
+  ipcRenderer.send('file-export', value.getHTML(), ['pdf'])
+})
+ipcRenderer.on('export-html', () => {
+  if (!vditor.value) return ''
+  const value = vditor.value
+  console.log(value.getHTML())
+  ipcRenderer.send('file-export', value.getHTML(), ['pdf'])
+})
+ipcRenderer.on('export-pdf', () => {
+  if (!vditor.value) return ''
+  const value = vditor.value
+  console.log(value.getHTML())
+  ipcRenderer.send('file-export', value.getHTML(), ['pdf'])
 })
 </script>
 

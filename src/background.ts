@@ -3,6 +3,8 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import path from 'path'
 import menus from '@/menus'
 // import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
+import './ipc'
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
