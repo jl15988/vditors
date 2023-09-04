@@ -1,5 +1,8 @@
 import {app, dialog, ipcMain} from 'electron';
 import * as fs from "fs";
+
+const homeDir = require('os').homedir();
+const desktopDir = `${homeDir}/Desktop`;
 import FileFilter = Electron.FileFilter;
 
 interface FileType {
@@ -49,6 +52,25 @@ ipcMain.on('file-export', (event, file, types) => {
   }).then(res => {
     if (res.filePath)
       fs.writeFileSync(res.filePath, file, 'utf-8')
+  }).catch(err => {
+    dialog.showErrorBox("错误", err)
+  })
+})
+
+ipcMain.on('file-save', (event, fileName, value) => {
+  dialog.showSaveDialog({
+    title: '保存',
+    defaultPath: desktopDir + "\\" + fileName,
+    filters: [{
+      name: 'MD',
+      extensions: ['md']
+    }],
+    buttonLabel: '保存',
+    properties: ['createDirectory']
+  }).then(res => {
+    if (res.filePath) {
+      fs.writeFileSync(res.filePath, value, 'utf-8')
+    }
   }).catch(err => {
     dialog.showErrorBox("错误", err)
   })

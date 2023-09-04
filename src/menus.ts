@@ -1,5 +1,6 @@
 import MenuItemConstructorOptions = Electron.MenuItemConstructorOptions;
 import {BrowserWindow, ipcMain} from 'electron'
+import dialogs from "@/ipc/dialogs";
 
 const theme = ['ant-design', 'light', 'dark', 'wechat']
 
@@ -18,14 +19,22 @@ export default (win: BrowserWindow) => {
         },
         {
           label: '打开...',
-          accelerator: 'Ctrl+O'
+          accelerator: 'Ctrl+O',
+          click: () => {
+            dialogs.chooseFile((filePaths) => {
+              win.webContents.send('filePath', filePaths[0])
+            })
+          }
         },
         {
           type: 'separator'
-        } as MenuItemConstructorOptions,
+        },
         {
           label: '保存',
-          accelerator: 'Ctrl+S'
+          accelerator: 'Ctrl+S',
+          click: () => {
+            win.webContents.send('save')
+          }
         },
         {
           label: '另存为...',

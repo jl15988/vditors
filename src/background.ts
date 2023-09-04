@@ -18,6 +18,7 @@ protocol.registerSchemesAsPrivileged([
 ])
 let win: any = null
 
+
 async function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
